@@ -105,6 +105,15 @@ class RadioTest {
     }
 
     @Test
+    void shouldNextCurrentStationWithArg() {
+        Radio rad = new Radio(20);
+        rad.setCurrentStation(9);
+        int expected = 10;
+        int actual = rad.nextCurrentStation();
+        assertEquals(expected, actual);
+    }
+
+    @Test
     void shouldPreviousCurrentStation() {
         Radio rad = new Radio();
         rad.setCurrentStation(5);
