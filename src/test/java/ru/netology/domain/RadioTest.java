@@ -26,8 +26,8 @@ class RadioTest {
     @Test
     void shouldSetCurrentStationUpBorder() {
         Radio rad = new Radio();
-        rad.setCurrentStation(9);
-        int expected = 9;
+        rad.setCurrentStation(8);
+        int expected = 8;
         int actual = rad.getCurrentStation();
         assertEquals(expected, actual);
     }
@@ -35,7 +35,16 @@ class RadioTest {
     @Test
     void shouldSetCurrentStationHiUpBorder() {
         Radio rad = new Radio();
-        rad.setCurrentStation(10);
+        rad.setCurrentStation(9);
+        int expected = 9;
+        int actual = rad.getCurrentStation();
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    void shouldSetCurrentStationBeyondHiBorder() {
+        Radio rad = new Radio();
+        rad.setCurrentStation(11);
         int expected = 0;
         int actual = rad.getCurrentStation();
         assertEquals(expected, actual);
@@ -44,6 +53,15 @@ class RadioTest {
     @Test
     void shouldSetCurrentStationBottomBorder() {
         Radio rad = new Radio();
+        rad.setCurrentStation(1);
+        int expected = 1;
+        int actual = rad.getCurrentStation();
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    void shouldSetCurrentStationLoBottomBorder() {
+        Radio rad = new Radio();
         rad.setCurrentStation(0);
         int expected = 0;
         int actual = rad.getCurrentStation();
@@ -51,7 +69,7 @@ class RadioTest {
     }
 
     @Test
-    void shouldSetCurrentStationLoBottomBorder() {
+    void shouldSetCurrentStationBeyondLoBorder() {
         Radio rad = new Radio();
         rad.setCurrentStation(-1);
         int expected = 0;
@@ -62,8 +80,8 @@ class RadioTest {
     @Test
     void shouldNextCurrentStation() {
         Radio rad = new Radio();
-        rad.currentStation = 8;
-        int expected = 9;
+        rad.setCurrentStation(6);
+        int expected = 7;
         int actual = rad.nextCurrentStation();
         assertEquals(expected, actual);
     }
@@ -71,8 +89,8 @@ class RadioTest {
     @Test
     void shouldNextCurrentStationBorder() {
         Radio rad = new Radio();
-        rad.currentStation = 9;
-        int expected = 0;
+        rad.setCurrentStation(8);
+        int expected = 9;
         int actual = rad.nextCurrentStation();
         assertEquals(expected, actual);
     }
@@ -80,8 +98,17 @@ class RadioTest {
     @Test
     void shouldNextCurrentStationHiBorder() {
         Radio rad = new Radio();
-        rad.currentStation = 10;
+        rad.setCurrentStation(9);
         int expected = 0;
+        int actual = rad.nextCurrentStation();
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    void shouldNextCurrentStationWithArg() {
+        Radio rad = new Radio(20);
+        rad.setCurrentStation(9);
+        int expected = 10;
         int actual = rad.nextCurrentStation();
         assertEquals(expected, actual);
     }
@@ -89,8 +116,8 @@ class RadioTest {
     @Test
     void shouldPreviousCurrentStation() {
         Radio rad = new Radio();
-        rad.currentStation = 1;
-        int expected = 0;
+        rad.setCurrentStation(5);
+        int expected = 4;
         int actual = rad.previousCurrentStation();
         assertEquals(expected, actual);
     }
@@ -98,8 +125,8 @@ class RadioTest {
     @Test
     void shouldPreviousCurrentStationBorder() {
         Radio rad = new Radio();
-        rad.currentStation = 0;
-        int expected = 9;
+        rad.setCurrentStation(1);
+        int expected = 0;
         int actual = rad.previousCurrentStation();
         assertEquals(expected, actual);
     }
@@ -107,7 +134,7 @@ class RadioTest {
     @Test
     void shouldPreviousCurrentStationLoBorder() {
         Radio rad = new Radio();
-        rad.currentStation = -1;
+        rad.setCurrentStation(0);
         int expected = 9;
         int actual = rad.previousCurrentStation();
         assertEquals(expected, actual);
@@ -116,7 +143,25 @@ class RadioTest {
     @Test
     void shouldCurrentVolume() {
         Radio rad = new Radio();
-        rad.currentVolume = 0;
+        rad.setCurrentStation(0);
+        int expected = 0;
+        int actual = rad.getCurrentVolume();
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    void shouldCurrentVolumeHi() {
+        Radio rad = new Radio();
+        rad.setCurrentVolume(101);
+        int expected = 0;
+        int actual = rad.getCurrentVolume();
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    void shouldCurrentVolumeLo() {
+        Radio rad = new Radio();
+        rad.setCurrentVolume(-1);
         int expected = 0;
         int actual = rad.getCurrentVolume();
         assertEquals(expected, actual);
@@ -125,8 +170,8 @@ class RadioTest {
     @Test
     void shouldIncreaseVolume() {
         Radio rad = new Radio();
-        rad.currentVolume = 6;
-        int expected = 7;
+        rad.setCurrentVolume(54);
+        int expected = 55;
         int actual = rad.increaseVolume();
         assertEquals(expected, actual);
     }
@@ -134,8 +179,8 @@ class RadioTest {
     @Test
     void shouldIncreaseVolumeUpBorder() {
         Radio rad = new Radio();
-        rad.currentVolume = 9;
-        int expected = 10;
+        rad.setCurrentVolume(99);
+        int expected = 100;
         int actual = rad.increaseVolume();
         assertEquals(expected, actual);
     }
@@ -143,8 +188,8 @@ class RadioTest {
     @Test
     void shouldIncreaseVolumeHiUpBorder() {
         Radio rad = new Radio();
-        rad.currentVolume = 10;
-        int expected = 10;
+        rad.setCurrentVolume(100);
+        int expected = 100;
         int actual = rad.increaseVolume();
         assertEquals(expected, actual);
     }
@@ -152,8 +197,8 @@ class RadioTest {
     @Test
     void shouldDecreaseVolume() {
         Radio rad = new Radio();
-        rad.currentVolume = 8;
-        int expected = 7;
+        rad.setCurrentVolume(53);
+        int expected = 52;
         int actual = rad.decreaseVolume();
         assertEquals(expected, actual);
     }
@@ -161,7 +206,7 @@ class RadioTest {
     @Test
     void shouldDecreaseVolumeLoBorder() {
         Radio rad = new Radio();
-        rad.currentVolume = 1;
+        rad.setCurrentVolume(1);
         int expected = 0;
         int actual = rad.decreaseVolume();
         assertEquals(expected, actual);
@@ -170,7 +215,7 @@ class RadioTest {
     @Test
     void shouldDecreaseVolumeBottomLoBorder() {
         Radio rad = new Radio();
-        rad.currentVolume = 0;
+        rad.setCurrentVolume(0);
         int expected = 0;
         int actual = rad.decreaseVolume();
         assertEquals(expected, actual);
